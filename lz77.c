@@ -107,6 +107,7 @@ static const unsigned char* GetMatch(const unsigned char* scan,
                                      const unsigned char* end,
                                      const unsigned char* safe_end) {
 
+#if 0
   if (sizeof(size_t) == 8) {
     /* 8 checks at once per array bounds check (size_t is 64-bit). */
     while (scan < safe_end && *((size_t*)scan) == *((size_t*)match)) {
@@ -121,6 +122,7 @@ static const unsigned char* GetMatch(const unsigned char* scan,
       match += 4;
     }
   } else {
+#endif
     /* do 8 checks at once per array bounds check. */
     while (scan < safe_end && *scan == *match && *++scan == *++match
           && *++scan == *++match && *++scan == *++match
@@ -128,7 +130,9 @@ static const unsigned char* GetMatch(const unsigned char* scan,
           && *++scan == *++match && *++scan == *++match) {
       scan++; match++;
     }
+#if 0
   }
+#endif
 
   /* The remaining few bytes. */
   while (scan != end && *scan == *match) {
